@@ -9,6 +9,9 @@ import (
 func main() {
 	serve := gin.Default()
 	serve.Any("/", indexHandler)
+	serve.Any("/baogao", func(c *gin.Context) {
+		c.File("baogao.jpg")
+	})
 	if err := serve.Run(":8000"); err != nil {
 		fmt.Printf("startup service failed, err:%v\n\n", err)
 	}
