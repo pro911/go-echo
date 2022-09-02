@@ -10,6 +10,8 @@ func main() {
 	serve := gin.Default()
 	serve.Any("/", echo.IndexHandler)
 	serve.Any("/json", echo.JsonDecode)
+	serve.Any("/img_base", echo.ImgBase)
+	serve.Any("/status", echo.ReturnStatus)
 	serve.Any("/baogao", func(c *gin.Context) {
 		c.File("baogao.jpg")
 	})

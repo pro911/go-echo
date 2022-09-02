@@ -24,7 +24,8 @@ func IndexHandler(c *gin.Context) {
 	body, _ := c.GetRawData()
 
 	username, pw, _ := c.Request.BasicAuth()
-
+	c.SetCookie("liveCookie", "gin", 120, "/", "go.apipost.cn", true, true)
+	c.SetCookie("loseCookie", "gin", -1, "/", "go.apipost.cn", true, true)
 	c.JSON(http.StatusOK, gin.H{
 		"header": header,
 		"query":  c.Request.URL.RawQuery,
