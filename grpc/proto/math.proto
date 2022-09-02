@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option go_package = "./pd";
+
+package math;
+
+// The greeting service definition.
+service MathService {
+  // Sends a greeting
+  rpc Add (AddRequest) returns (AddResponse) {}
+  rpc Sub (SubRequest) returns (SubResponse) {}
+}
+
+// The request message containing the user's name.
+message AddRequest {
+  repeated int32 values = 1;
+}
+
+// The response message containing the greetings
+message AddResponse {
+  int32 val = 1;
+}
+
+// The request message containing the user's name.
+message SubRequest {
+  repeated int32 values = 1;
+}
+
+// The response message containing the greetings
+message SubResponse {
+  int32 val = 1;
+}
