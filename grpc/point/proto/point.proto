@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "./pd";
+
+package app.point;
+
+// The greeting service definition.
+service AppPointService {
+  // Sends a greeting
+  rpc Send (Request) returns (Response) {}
+}
+
+// The request message containing the user's name.
+message Request {
+  int32 msg_code = 1;
+  string msg_data = 2;
+}
+
+// The response message containing the greetings
+message Response {
+  int32 msg_code = 1;
+  string msg_data = 2;
+}
