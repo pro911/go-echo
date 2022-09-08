@@ -9,6 +9,7 @@ import (
 func main() {
 	serve := gin.Default()
 	serve.Any("/", echo.IndexHandler)
+	serve.GET("/websocket", echo.Websocket)
 	serve.Any("/json", echo.JsonDecode)
 	serve.Any("/img_base", echo.ImgBase)
 	serve.Any("/status", echo.ReturnStatus)
