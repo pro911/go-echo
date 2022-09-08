@@ -1,36 +1,9 @@
-package main
+package server
 
 import (
 	"context"
-	"echo/grpc/pd"
-	//"google.golang.org/grpc"
-	//"net"
+	"echo/grpc/math/pd"
 )
-
-//type Math struct {
-//}
-//
-//func (m *Math)Add(args []int, resp *int) error {
-//	sum := 0
-//	for _,arg := range args{
-//		sum += arg
-//	}
-//	*resp = sum
-//	return nil
-//}
-//
-//func (m *Math)Sub(args []int, resp *int) error {
-//	sum := 0
-//	for k,arg := range args{
-//		if k == 0 {
-//			sum = arg
-//			continue
-//		}
-//		sum -=  arg
-//	}
-//	*resp = sum
-//	return nil
-//}
 
 type MathService struct{}
 
