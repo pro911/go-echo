@@ -26,6 +26,7 @@ type UserInfoServiceClient interface {
 	//定义请求参数为UserRequest,响应参数为UserResponse
 	GetUserInfo(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (*UserResponse, error)
 	GetUserName(ctx context.Context, in *NameRequest, opts ...grpc.CallOption) (*NameResponse, error)
+	GetSexName(ctx context.Context, in *SexRequest, opts ...grpc.CallOption) (*SexResponse, error)
 }
 
 type userInfoServiceClient struct {
@@ -54,6 +55,15 @@ func (c *userInfoServiceClient) GetUserName(ctx context.Context, in *NameRequest
 	return out, nil
 }
 
+func (c *userInfoServiceClient) GetSexName(ctx context.Context, in *SexRequest, opts ...grpc.CallOption) (*SexResponse, error) {
+	out := new(SexResponse)
+	err := c.cc.Invoke(ctx, "/proto.UserInfoService/GetSexName", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserInfoServiceServer is the server API for UserInfoService service.
 // All implementations must embed UnimplementedUserInfoServiceServer
 // for forward compatibility
@@ -62,6 +72,7 @@ type UserInfoServiceServer interface {
 	//定义请求参数为UserRequest,响应参数为UserResponse
 	GetUserInfo(context.Context, *UserRequest) (*UserResponse, error)
 	GetUserName(context.Context, *NameRequest) (*NameResponse, error)
+	GetSexName(context.Context, *SexRequest) (*SexResponse, error)
 	mustEmbedUnimplementedUserInfoServiceServer()
 }
 
@@ -74,6 +85,9 @@ func (UnimplementedUserInfoServiceServer) GetUserInfo(context.Context, *UserRequ
 }
 func (UnimplementedUserInfoServiceServer) GetUserName(context.Context, *NameRequest) (*NameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserName not implemented")
+}
+func (UnimplementedUserInfoServiceServer) GetSexName(context.Context, *SexRequest) (*SexResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSexName not implemented")
 }
 func (UnimplementedUserInfoServiceServer) mustEmbedUnimplementedUserInfoServiceServer() {}
 
@@ -124,6 +138,24 @@ func _UserInfoService_GetUserName_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserInfoService_GetSexName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SexRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInfoServiceServer).GetSexName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.UserInfoService/GetSexName",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInfoServiceServer).GetSexName(ctx, req.(*SexRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserInfoService_ServiceDesc is the grpc.ServiceDesc for UserInfoService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -138,6 +170,10 @@ var UserInfoService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserName",
 			Handler:    _UserInfoService_GetUserName_Handler,
+		},
+		{
+			MethodName: "GetSexName",
+			Handler:    _UserInfoService_GetSexName_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
