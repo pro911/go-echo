@@ -2,6 +2,7 @@ package main
 
 import (
 	"echo/app/controllers/echo"
+	"echo/app/middleware/cors"
 	pb "echo/grpc/proto"
 	"echo/grpc/service"
 	resource "echo/resource/example"
@@ -30,6 +31,14 @@ func main() {
 
 	//3.New 返回一个新的空白 Engine 实例，没有附加任何中间件。
 	httpServe := gin.New()
+
+	httpServe.Use(cors.Cors()) //解决跨域问题
+
+	httpServe.Use(gin.Logger())
+
+	httpServe.Use(gin.Recovery())
+
+	httpServe.Use()
 
 	httpServe.Any("/", echo.IndexHandler)
 	httpServe.GET("/websocket", echo.Websocket)
