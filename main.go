@@ -3,46 +3,54 @@ package main
 import (
 	"echo/app/controllers/echo"
 	pb "echo/grpc/proto"
-	"fmt"
+	"echo/grpc/service"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
+	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
-	"net"
+	"log"
+	"net/http"
+	"strings"
 )
 
-type UserInfoService struct {
-	pb.UnimplementedUserInfoServiceServer
-}
+var (
+	g errgroup.Group
+)
 
-var u = UserInfoService{}
+var u = service.UserInfoService{}
 
 func main() {
-	serve := gin.Default()
-	serve.Any("/", echo.IndexHandler)
-	serve.GET("/websocket", echo.Websocket)
-	serve.Any("/json", echo.JsonDecode)
-	serve.Any("/img_base", echo.ImgBase)
-	serve.Any("/status", echo.ReturnStatus)
-	serve.Any("/baogao", func(c *gin.Context) {
+
+	grpcServe := grpc.NewServer()
+
+	pb.RegisterUserInfoServiceServer(grpcServe, &u)
+
+	httpServe := gin.New()
+
+	httpServe.Any("/", echo.IndexHandler)
+	httpServe.GET("/websocket", echo.Websocket)
+	httpServe.Any("/json", echo.JsonDecode)
+	httpServe.Any("/img_base", echo.ImgBase)
+	httpServe.Any("/status", echo.ReturnStatus)
+	httpServe.Any("/baogao", func(c *gin.Context) {
 		c.File("baogao.jpg")
 	})
-	if err := serve.Run(":8000"); err != nil {
-		fmt.Printf("startup service failed, err:%v\n\n", err)
-	}
 
-	// 1. 监听
-	address := "0.0.0.0:30005"
-	lis, err := net.Listen("tcp", address)
-	if err != nil {
-		fmt.Println("监听异常 ", err)
-		return
-	} else {
-		fmt.Println("监听成功:", address)
+	// 监听端口并处理服务分流
+	h2Handler := h2c.NewHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// 判断协议是否为http/2 && 是grpc
+		if r.ProtoMajor == 2 && strings.HasPrefix(r.Header.Get("Content-Type"), "application/grpc") {
+			//按照grpc处理请求
+			grpcServe.ServeHTTP(w, r)
+		} else {
+			//当作普通api处理
+			httpServe.ServeHTTP(w, r)
+		}
+	}), &http2.Server{})
+
+	// 监听HTTP服务
+	if err := http.ListenAndServe(":8000", h2Handler); err != nil {
+		log.Println("http server done:", err.Error())
 	}
-	// 2. 实例化rpc
-	s := grpc.NewServer()
-	// 3. 在gRPC上注册微服务
-	// 第一个类型是服务，第二个类型是接口的变量
-	pb.RegisterUserInfoServiceServer(s, &u)
-	// 4. 启动gRPC服务端
-	_ = s.Serve(lis)
 }
