@@ -1,0 +1,62 @@
+//一个message类型定义描述了一个请求或响应的消息格式，可以包含多种类型字段
+//字段名用小写，转为go文件后自动变成大写，message就相当于结构体
+
+//定义版本号
+syntax = "proto3";
+
+//定义生成的包名称 : 指定生成user.pb.go包名为proto
+package proto;
+
+//输出路径
+option go_package = "./";
+
+//定义客户端请求格式
+message UserRequest{
+  //定义请求参数
+  string name = 1;
+}
+//定义服务端响应格式
+message UserResponse{
+  //定义响应参数
+  int32 id = 1;
+  string name = 2;
+  int32 age = 3;
+  //字段修饰符
+  //repeated 表示可变数组，类似于切片类型
+  repeated string hobby = 4;
+}
+
+message NameRequest{
+  //定义请求参数
+  int32 id = 1;
+}
+
+message NameResponse{
+  //定义响应参数
+  string name = 1;
+}
+
+message SexRequest{
+  //定义请求参数
+  int32 id = 1;
+}
+
+message SexResponse{
+  //定义响应参数
+  string Set = 1;
+}
+
+//定义服务接口。相当于接口，service相当于开发调用的服务
+service UserInfoService{
+  //接口内的方法
+  //定义请求参数为UserRequest,响应参数为UserResponse
+  rpc GetUserInfo (UserRequest) returns (UserResponse) {}
+
+  rpc GetUserName (NameRequest) returns (NameResponse) {}
+
+  rpc GetSexName (SexRequest) returns (SexResponse) {}
+}
+
+//protoc --go_out=plugins=grpc:. user.proto
+//有时候执行上面会报错，是因为版本问题。
+//protoc --go_out=. user.proto
