@@ -1,7 +1,7 @@
 // Code generated for package resource by go-bindata DO NOT EDIT. (@generated)
 // sources:
-// resources/static/example/web.json
-// resources/static/example/client.json
+// resource/example/web.json
+// resource/example/client.json
 package resource
 
 import (
@@ -83,7 +83,7 @@ var _resourcesStaticExampleWebJson = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x0
 func resourcesStaticExampleWebJsonBytes() ([]byte, error) {
 	return bindataRead(
 		_resourcesStaticExampleWebJson,
-		"resources/static/example/web.json",
+		"resource/example/web.json",
 	)
 }
 
@@ -93,7 +93,7 @@ func resourcesStaticExampleWebJson() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "resources/static/example/web.json", size: 17395, mode: os.FileMode(438), modTime: time.Unix(1662712593, 0)}
+	info := bindataFileInfo{name: "resource/example/web.json", size: 17395, mode: os.FileMode(438), modTime: time.Unix(1662712593, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -103,7 +103,7 @@ var _resourcesStaticExampleClientJson = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00
 func resourcesStaticExampleClientJsonBytes() ([]byte, error) {
 	return bindataRead(
 		_resourcesStaticExampleClientJson,
-		"resources/static/example/client.json",
+		"resource/example/client.json",
 	)
 }
 
@@ -113,7 +113,7 @@ func resourcesStaticExampleClientJson() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "resources/static/example/client.json", size: 11677, mode: os.FileMode(438), modTime: time.Unix(1662711021, 0)}
+	info := bindataFileInfo{name: "resource/example/client.json", size: 11677, mode: os.FileMode(438), modTime: time.Unix(1662711021, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -170,8 +170,8 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
-	"resources/static/example/web.json":    resourcesStaticExampleWebJson,
-	"resources/static/example/client.json": resourcesStaticExampleClientJson,
+	"resource/example/web.json":    resourcesStaticExampleWebJson,
+	"resource/example/client.json": resourcesStaticExampleClientJson,
 }
 
 // AssetDir returns the file names below a certain

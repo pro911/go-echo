@@ -49,7 +49,7 @@ func main() {
 		}
 
 		//获取文件地址
-		filePath := fmt.Sprintf("%v%v.json", "resources/static/example/", terminal)
+		filePath := fmt.Sprintf("%v%v.json", "resource/example/", terminal)
 		fmt.Println(filePath)
 		//b, err := ioutil.ReadFile(filePath) //读取文件内容
 		b, err := resource.Asset(filePath)
