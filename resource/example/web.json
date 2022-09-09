@@ -16,16 +16,16 @@
                         "GetUserInfo": {
                             "proto": "user.proto",
                             "service": "proto.UserInfoService",
-                            "url": "59.110.10.84:30005",
+                            "url": "go.apipost.cn",
                             "method": "GetUserInfo",
                             "request": {
                                 "header": [],
                                 "body": {
-                                    "raw": "{\n\t\"name\":\"pro911@qq.com\"\n}",
+                                    "raw": "{\n\t\"name\":\"apipost.cn\"\n}",
                                     "parameter": [
                                         {
                                             "key": "name",
-                                            "value": "pro911@qq.com",
+                                            "value": "apipost.cn",
                                             "description": "",
                                             "not_null": 1,
                                             "field_type": "String",
@@ -49,7 +49,7 @@
                         "GetUserName": {
                             "proto": "user.proto",
                             "service": "proto.UserInfoService",
-                            "url": "59.110.10.84:30005",
+                            "url": "go.apipost.cn",
                             "method": "GetUserName",
                             "request": {
                                 "header": [],
@@ -93,7 +93,7 @@
             "query": {
                 "parameter": []
             },
-            "url": "ws://127.0.0.1:8000/websocket",
+            "url": "wss://go.apipost.cn/websocket",
             "description": ""
         },
         "socketConfig": {
@@ -108,7 +108,7 @@
         },
         "message": "",
         "messageType": "Text",
-        "url": "ws://127.0.0.1:8000/websocket"
+        "url": "wss://go.apipost.cn/websocket"
     },
     {
         "parent_id": "0",
@@ -317,10 +317,10 @@
         "status": 1,
         "method": "POST",
         "mock": "{}",
-        "mock_url": "/get.php",
-        "url": "echo.apipost.cn/get.php",
+        "mock_url": "/",
+        "url": "https://go.apipost.cn/",
         "request": {
-            "url": "echo.apipost.cn/get.php",
+            "url": "https://go.apipost.cn/",
             "description": "",
             "auth": {
                 "type": "noauth",
