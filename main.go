@@ -38,8 +38,6 @@ func main() {
 
 	httpServe.Use(gin.Recovery())
 
-	httpServe.Use()
-
 	httpServe.Any("/", echo.IndexHandler)
 	httpServe.GET("/websocket", echo.Websocket)
 	httpServe.Any("/json", echo.JsonDecode)
