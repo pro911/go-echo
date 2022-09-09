@@ -4,15 +4,17 @@ import (
 	"echo/app/controllers/echo"
 	pb "echo/grpc/proto"
 	"echo/grpc/service"
+	resource "echo/resource/example"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
-	"io/ioutil"
+	"strings"
+
+	//"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
 )
 
 //调用具体的grpc service
@@ -47,9 +49,10 @@ func main() {
 		}
 
 		//获取文件地址
-		filePath := fmt.Sprintf("%v%v.json", "resources/static/example/", terminal)
+		filePath := fmt.Sprintf("%v%v.json", "resource/example/", terminal)
 		fmt.Println(filePath)
-		b, err := ioutil.ReadFile(filePath) //读取文件内容
+		//b, err := ioutil.ReadFile(filePath) //读取文件内容
+		b, err := resource.Asset(filePath)
 		if err != nil {
 			c.JSON(http.StatusOK, err.Error())
 		} else {
