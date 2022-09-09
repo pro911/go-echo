@@ -4,28 +4,29 @@ import (
 	"echo/app/controllers/echo"
 	pb "echo/grpc/proto"
 	"echo/grpc/service"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
-	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
 )
 
-var (
-	g errgroup.Group
-)
-
+//调用具体的grpc service
 var u = service.UserInfoService{}
 
 func main() {
 
+	//1.NewServer 创建一个未注册服务且尚未开始接受请求的 gRPC 服务器
 	grpcServe := grpc.NewServer()
 
+	//2.注册具体的grpc服务
 	pb.RegisterUserInfoServiceServer(grpcServe, &u)
 
+	//3.New 返回一个新的空白 Engine 实例，没有附加任何中间件。
 	httpServe := gin.New()
 
 	httpServe.Any("/", echo.IndexHandler)
@@ -35,6 +36,26 @@ func main() {
 	httpServe.Any("/status", echo.ReturnStatus)
 	httpServe.Any("/baogao", func(c *gin.Context) {
 		c.File("baogao.jpg")
+	})
+
+	httpServe.Any("/example", func(c *gin.Context) {
+		//'terminal'
+		terminal := c.GetHeader("terminal") //web || client
+
+		if terminal == "" {
+			terminal = "web"
+		}
+
+		//获取文件地址
+		filePath := fmt.Sprintf("%v%v.json", "resources/static/example/", terminal)
+		fmt.Println(filePath)
+		b, err := ioutil.ReadFile(filePath) //读取文件内容
+		if err != nil {
+			c.JSON(http.StatusOK, err.Error())
+		} else {
+			c.String(http.StatusOK, string(b))
+		}
+		return
 	})
 
 	// 监听端口并处理服务分流

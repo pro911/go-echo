@@ -1,0 +1,465 @@
+[
+    {
+        "parent_id": "0",
+        "target_type": "grpc",
+        "name": "示例grpc",
+        "sort": 1,
+        "version": 1,
+        "mark": "developing",
+        "status": 1,
+        "protos": {
+            "user.proto": {
+                "protoPath": "C:\\Users\\pro91\\Downloads\\user.proto",
+                "protoContent": "//一个message类型定义描述了一个请求或响应的消息格式，可以包含多种类型字段\r\n//字段名用小写，转为go文件后自动变成大写，message就相当于结构体\r\n\r\n//定义版本号\r\nsyntax = \"proto3\";\r\n\r\n//定义生成的包名称 : 指定生成user.pb.go包名为proto\r\npackage proto;\r\n\r\n//输出路径\r\noption go_package = \"./\";\r\n\r\n//定义客户端请求格式\r\nmessage UserRequest{\r\n  //定义请求参数\r\n  string name = 1;\r\n}\r\n//定义服务端响应格式\r\nmessage UserResponse{\r\n  //定义响应参数\r\n  int32 id = 1;\r\n  string name = 2;\r\n  int32 age = 3;\r\n  //字段修饰符\r\n  //repeated 表示可变数组，类似于切片类型\r\n  repeated string hobby = 4;\r\n}\r\n\r\nmessage NameRequest{\r\n  //定义请求参数\r\n  int32 id = 1;\r\n}\r\n\r\nmessage NameResponse{\r\n  //定义响应参数\r\n  string name = 1;\r\n}\r\n\r\n//定义服务接口。相当于接口，service相当于开发调用的服务\r\nservice UserInfoService{\r\n  //接口内的方法\r\n  //定义请求参数为UserRequest,响应参数为UserResponse\r\n  rpc GetUserInfo (UserRequest) returns (UserResponse) {}\r\n\r\n  rpc GetUserName (NameRequest) returns (NameResponse) {}\r\n}\r\n\r\n//protoc --go_out=plugins=grpc:. user.proto\r\n//有时候执行上面会报错，是因为版本问题。\r\n//protoc --go_out=. user.proto",
+                "services": {
+                    "proto.UserInfoService": {
+                        "GetUserInfo": {
+                            "proto": "user.proto",
+                            "service": "proto.UserInfoService",
+                            "url": "59.110.10.84:30005",
+                            "method": "GetUserInfo",
+                            "request": {
+                                "header": [],
+                                "body": {
+                                    "raw": "{\n\t\"name\":\"pro911@qq.com\"\n}",
+                                    "parameter": [
+                                        {
+                                            "key": "name",
+                                            "value": "pro911@qq.com",
+                                            "description": "",
+                                            "not_null": 1,
+                                            "field_type": "String",
+                                            "type": "Text",
+                                            "is_checked": 1
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": {
+                                "success": {
+                                    "raw": "",
+                                    "parameter": []
+                                },
+                                "error": {
+                                    "raw": "",
+                                    "parameter": []
+                                }
+                            }
+                        },
+                        "GetUserName": {
+                            "proto": "user.proto",
+                            "service": "proto.UserInfoService",
+                            "url": "59.110.10.84:30005",
+                            "method": "GetUserName",
+                            "request": {
+                                "header": [],
+                                "body": {
+                                    "raw": "{\r\n\t\"id\":\"1\"\r\n}",
+                                    "parameter": []
+                                }
+                            },
+                            "response": {
+                                "success": {
+                                    "raw": "",
+                                    "parameter": []
+                                },
+                                "error": {
+                                    "raw": "",
+                                    "parameter": []
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "request": {
+            "description": ""
+        }
+    },
+    {
+        "parent_id": "0",
+        "target_type": "websocket",
+        "name": "示例websocket",
+        "sort": 1,
+        "version": 1,
+        "mark": "developing",
+        "status": 1,
+        "method": "Raw",
+        "request": {
+            "header": {
+                "parameter": []
+            },
+            "query": {
+                "parameter": []
+            },
+            "url": "ws://127.0.0.1:8000/websocket",
+            "description": ""
+        },
+        "socketConfig": {
+            "informationSize": 5,
+            "reconnectNum": 0,
+            "reconnectTime": 5000,
+            "shakeHandsPath": "/socket.io",
+            "shakeHandsTimeOut": 0,
+            "socketEventName": "",
+            "socketIoEventListeners": [],
+            "socketIoVersion": "v3"
+        },
+        "message": "",
+        "messageType": "Text",
+        "url": "ws://127.0.0.1:8000/websocket"
+    },
+    {
+        "parent_id": "0",
+        "target_type": "doc",
+        "name": "示例文本",
+        "sort": 1,
+        "version": 1,
+        "mark": "developing",
+        "status": 1,
+        "request": {
+            "description": "## 欢迎使用ApiPost\nHello World!"
+        },
+        "is_changed": -1
+    },
+    {
+        "parent_id": "0",
+        "target_type": "api",
+        "name": "示例接口",
+        "version": 1,
+        "mark": "developing",
+        "status": 1,
+        "method": "POST",
+        "mock": "{}",
+        "mock_url": "/",
+        "url": "https://go.apipost.cn/?Query=test",
+        "request": {
+            "url": "https://go.apipost.cn/?Query=test",
+            "description": "## 欢迎使用ApiPost",
+            "auth": {
+                "type": "basic",
+                "kv": {
+                    "key": "",
+                    "value": ""
+                },
+                "bearer": {
+                    "key": ""
+                },
+                "basic": {
+                    "username": "tom",
+                    "password": "123456"
+                },
+                "digest": {
+                    "username": "",
+                    "password": "",
+                    "realm": "",
+                    "nonce": "",
+                    "algorithm": "",
+                    "qop": "",
+                    "nc": "",
+                    "cnonce": "",
+                    "opaque": ""
+                },
+                "hawk": {
+                    "authId": "",
+                    "authKey": "",
+                    "algorithm": "",
+                    "user": "",
+                    "nonce": "",
+                    "extraData": "",
+                    "app": "",
+                    "delegation": "",
+                    "timestamp": "",
+                    "includePayloadHash": -1
+                },
+                "awsv4": {
+                    "accessKey": "",
+                    "secretKey": "",
+                    "region": "",
+                    "service": "",
+                    "sessionToken": "",
+                    "addAuthDataToQuery": -1
+                },
+                "ntlm": {
+                    "username": "",
+                    "password": "",
+                    "domain": "",
+                    "workstation": "",
+                    "disableRetryRequest": 1
+                },
+                "edgegrid": {
+                    "accessToken": "",
+                    "clientToken": "",
+                    "clientSecret": "",
+                    "nonce": "",
+                    "timestamp": "",
+                    "baseURi": "",
+                    "headersToSign": ""
+                },
+                "oauth1": {
+                    "consumerKey": "",
+                    "consumerSecret": "",
+                    "signatureMethod": "",
+                    "addEmptyParamsToSign": -1,
+                    "includeBodyHash": -1,
+                    "addParamsToHeader": -1,
+                    "realm": "",
+                    "version": "1.0",
+                    "nonce": "",
+                    "timestamp": "",
+                    "verifier": "",
+                    "callback": "",
+                    "tokenSecret": "",
+                    "token": ""
+                }
+            },
+            "body": {
+                "mode": "form-data",
+                "parameter": [
+                    {
+                        "description": "",
+                        "field_type": "String",
+                        "is_checked": 1,
+                        "key": "body",
+                        "value": "test",
+                        "not_null": 1,
+                        "type": "Text"
+                    }
+                ],
+                "raw": "",
+                "raw_para": []
+            },
+            "event": {
+                "pre_script": "console.log(\"预执行脚本:欢迎使用ApiPost\");",
+                "test": "console.log(\"后执行脚本:欢迎使用ApiPost\");"
+            },
+            "header": {
+                "parameter": [
+                    {
+                        "description": "",
+                        "field_type": "String",
+                        "is_checked": 1,
+                        "key": "Hello",
+                        "value": "Tom",
+                        "not_null": 1,
+                        "type": "Text"
+                    }
+                ]
+            },
+            "query": {
+                "parameter": [
+                    {
+                        "description": "",
+                        "field_type": "String",
+                        "is_checked": 1,
+                        "key": "Query",
+                        "value": "test",
+                        "not_null": 1,
+                        "type": "Text"
+                    }
+                ]
+            },
+            "cookie": {
+                "parameter": []
+            },
+            "resful": {
+                "parameter": []
+            }
+        },
+        "response": {
+            "success": {
+                "raw": "",
+                "parameter": [],
+                "expect": {
+                    "name": "成功",
+                    "isDefault": 1,
+                    "code": 200,
+                    "contentType": "json",
+                    "verifyType": "schema",
+                    "mock": "",
+                    "schema": []
+                }
+            },
+            "error": {
+                "raw": "",
+                "parameter": [],
+                "expect": {
+                    "name": "失败",
+                    "isDefault": -1,
+                    "code": 404,
+                    "contentType": "json",
+                    "verifyType": "schema",
+                    "mock": "",
+                    "schema": []
+                }
+            }
+        },
+        "is_check_result": 1,
+        "check_result_expectId": "",
+        "is_example": -1,
+        "is_locked": -1,
+        "enable_ai_expect": -1,
+        "enable_server_mock": -1,
+        "ai_expect": {
+            "none_math_expect_id": "",
+            "list": []
+        },
+        "is_changed": -1
+    },
+    {
+        "parent_id": "0",
+        "target_type": "api",
+        "name": "”捉虫“大师在线调试地址",
+        "sort": 4,
+        "version": 1,
+        "mark": "developing",
+        "status": 1,
+        "method": "POST",
+        "mock": "{}",
+        "mock_url": "/get.php",
+        "url": "echo.apipost.cn/get.php",
+        "request": {
+            "url": "echo.apipost.cn/get.php",
+            "description": "",
+            "auth": {
+                "type": "noauth",
+                "kv": {
+                    "key": "",
+                    "value": ""
+                },
+                "bearer": {
+                    "key": ""
+                },
+                "basic": {
+                    "username": "",
+                    "password": ""
+                },
+                "digest": {
+                    "username": "",
+                    "password": "",
+                    "realm": "",
+                    "nonce": "",
+                    "algorithm": "",
+                    "qop": "",
+                    "nc": "",
+                    "cnonce": "",
+                    "opaque": ""
+                },
+                "hawk": {
+                    "authId": "",
+                    "authKey": "",
+                    "algorithm": "",
+                    "user": "",
+                    "nonce": "",
+                    "extraData": "",
+                    "app": "",
+                    "delegation": "",
+                    "timestamp": "",
+                    "includePayloadHash": -1
+                },
+                "awsv4": {
+                    "accessKey": "",
+                    "secretKey": "",
+                    "region": "",
+                    "service": "",
+                    "sessionToken": "",
+                    "addAuthDataToQuery": -1
+                },
+                "ntlm": {
+                    "username": "",
+                    "password": "",
+                    "domain": "",
+                    "workstation": "",
+                    "disableRetryRequest": 1
+                },
+                "edgegrid": {
+                    "accessToken": "",
+                    "clientToken": "",
+                    "clientSecret": "",
+                    "nonce": "",
+                    "timestamp": "",
+                    "baseURi": "",
+                    "headersToSign": ""
+                },
+                "oauth1": {
+                    "consumerKey": "",
+                    "consumerSecret": "",
+                    "signatureMethod": "",
+                    "addEmptyParamsToSign": -1,
+                    "includeBodyHash": -1,
+                    "addParamsToHeader": -1,
+                    "realm": "",
+                    "version": "1.0",
+                    "nonce": "",
+                    "timestamp": "",
+                    "verifier": "",
+                    "callback": "",
+                    "tokenSecret": "",
+                    "token": ""
+                }
+            },
+            "body": {
+                "mode": "none",
+                "parameter": [],
+                "raw": "",
+                "raw_para": []
+            },
+            "event": {
+                "pre_script": "//武松喝了18碗酒为什么还是打不死老虎\r\n\r\nclass Animal {\r\n  constructor(name, power) {\r\n    this.name = name;\r\n    this.power = power;\r\n    this.state = '良好'\r\n  }\r\n}\r\n\r\n\r\nclass Person extends Animal {\r\n  constructor(name, power) {\r\n    super(name, power)\r\n  }\r\n\r\n  drinkWine(weight) {\r\n    this.power = this.power + weight * 10;\r\n  }\r\n\r\n  fight(animal) {\r\n    if (this.power > animal.power) {\r\n      console.log(this.name + '成功打死' + animal.name + \",被封为壮士！\");\r\n      this.state = '良好'\r\n    }\r\n    else if (this.power < animal.power) {\r\n      console.log('壮士' + this.name + '路过景阳冈，被猛虎抓走了')\r\n      this.state = '被吃了'\r\n    }\r\n    else {\r\n      console.log('战斗未分胜负')\r\n      this.state = '搏斗中'\r\n    }\r\n  }\r\n}\r\n\r\nconst wusong = new Person('武松', '100');\r\nconst tigger = new Animal('大老虎', '200');\r\nwusong.drinkWine(18);\r\nwusong.fight(tigger);\r\nconsole.log(wusong.state);",
+                "test": ""
+            },
+            "header": {
+                "parameter": []
+            },
+            "query": {
+                "parameter": []
+            },
+            "cookie": {
+                "parameter": []
+            },
+            "resful": {
+                "parameter": []
+            }
+        },
+        "response": {
+            "success": {
+                "raw": "",
+                "parameter": [],
+                "expect": {
+                    "name": "成功",
+                    "isDefault": 1,
+                    "code": 200,
+                    "contentType": "json",
+                    "verifyType": "schema",
+                    "mock": "",
+                    "schema": {}
+                }
+            },
+            "error": {
+                "raw": "",
+                "parameter": [],
+                "expect": {
+                    "name": "失败",
+                    "isDefault": -1,
+                    "code": 404,
+                    "contentType": "json",
+                    "verifyType": "schema",
+                    "mock": "",
+                    "schema": {}
+                }
+            }
+        },
+        "is_check_result": 1,
+        "check_result_expectId": "",
+        "is_example": -1,
+        "is_locked": -1,
+        "enable_ai_expect": -1,
+        "enable_server_mock": -1,
+        "ai_expect": {
+            "none_math_expect_id": "",
+            "list": []
+        },
+        "is_changed": -1
+    }
+]
