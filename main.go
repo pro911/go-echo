@@ -2,16 +2,18 @@ package main
 
 import (
 	"echo/app/controllers/echo"
-	"echo/app/middleware/cors"
+	//"echo/app/middleware/cors"
 	pb "echo/grpc/proto"
 	"echo/grpc/service"
 	resource "echo/resource/example"
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
 	"strings"
+	"time"
 
 	//"io/ioutil"
 	"log"
@@ -32,7 +34,17 @@ func main() {
 	//3.New 返回一个新的空白 Engine 实例，没有附加任何中间件。
 	httpServe := gin.New()
 
-	httpServe.Use(cors.Cors()) //解决跨域问题
+	//httpServe.Use(cors.Cors()) //解决跨域问题
+
+	// cors
+	httpServe.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"POST", "GET", "OPTIONS", "DELETE", "PUT", "PATCH"},
+		AllowHeaders:     []string{"Authorization", "Content-Type", "Upgrade", "Origin", "Connection", "Accept-Encoding", "Accept-Language", "Host", "x-requested-with"},
+		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Content-Type"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	httpServe.Use(gin.Logger())
 
