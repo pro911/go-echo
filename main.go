@@ -60,12 +60,9 @@ func main() {
 	})
 
 	httpServe.Any("/example", func(c *gin.Context) {
-		//'terminal'
-		terminal := c.GetHeader("terminal") //web || client
 
-		if terminal == "" {
-			terminal = "web"
-		}
+		//'terminal'
+		terminal := c.DefaultQuery("terminal", "web") //web || client
 
 		//获取文件地址
 		filePath := fmt.Sprintf("%v%v.json", "resource/example/", terminal)
