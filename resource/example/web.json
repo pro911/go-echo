@@ -311,6 +311,7 @@
   },
   {
     "parent_id": "0",
+    "channel_acitivity": "foundbug",
     "target_type": "api",
     "name": "”捉虫“大师在线调试地址",
     "sort": 4,
