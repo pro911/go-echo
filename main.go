@@ -62,7 +62,13 @@ func main() {
 	httpServe.Any("/example", func(c *gin.Context) {
 
 		//'terminal'
-		terminal := c.DefaultQuery("terminal", "web") //web || client
+		terminal := c.DefaultQuery("terminal", "web")               //web || client
+		channelAcitivity := c.DefaultQuery("channel_acitivity", "") //foundbug
+		if channelAcitivity == "foundbug" {
+			terminal = "web"
+		} else {
+			terminal = "client"
+		}
 
 		//获取文件地址
 		filePath := fmt.Sprintf("%v%v.json", "resource/example/", terminal)
